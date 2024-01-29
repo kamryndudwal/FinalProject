@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <h2>Testing -> Playing Sound Depending on Quadrant</h2>
+
+  <p id="test"></p>
+
+  <p>Choose Happy, Sad, Angry, Fear</p>
+  <input type="text" id="userInput" name="userInput">
+  <button type="button" onclick="getUserInput()">Get Input</button>
+
+  <audio id="1" src="Q1.wav"></audio>
+  <audio id="2" src="Q2.wav"></audio>
+  <audio id="3" src="Q3.wav"></audio>
+  <audio id="4" src="Q4.wav"></audio>
+
+
+  <script>
+    //TESTING -> PLAYING SOUND DEPENDING ON QUADRANT
+
+    // var one = document.getElementById("1");
+    // var two = document.getElementById("2");
+    // var three = document.getElementById("3");
+    // var four = document.getElementById("4");
+
+    // var array = [
+    //     { emotion: 'happy', quad: one },
+    //     {emotion: 'sad', quad: two},
+    //     { emotion: 'angry', quad: three  },
+    //     { emotion: 'fear', quad:four }
+    //   ];
+
+    // function getUserInput(){
+
+    //   var userInput = document.getElementById("userInput").value;
+
+    //   for(var i = 0; i < array.length; i++){
+
+    //     if(userInput === array[i].emotion ){
+    //       array[i].quad.play();
+    //       break;
+    //     }
+    //   }
+    // }
+
+    // TESTING HOW TO INCORPORATE LOCATION TO GET RIGHT TAGS
+
+    var lat = 0;
+    var lon = 0;
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          // Get latitude and longitude from the position object
+          lat = position.coords.latitude.toFixed(4);
+          lon = position.coords.longitude.toFixed(5);
+
+          console.log('Latitude:', lat);
+          console.log('Longitude:', lon);
+
+          //getting json data to iterate through for web browser
+          fetch('./test1.json')
+            .then(response => {
+              return response.json();
+            })
+            .then(jsonData => {
+              console.log(jsonData);
+              console.log(lat + " " + lon);
+              pleaseWork(jsonData);
+            })
+            .catch(error => {
+              console.error('Error fetching or parsing JSON:', error);
+            });
+        }
+      );
+    }
+
+
+  </script>
+
+  <script src="./test.js"></script>
+
+
+</body>
+
+</html>
